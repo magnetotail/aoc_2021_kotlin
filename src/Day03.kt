@@ -38,14 +38,14 @@ fun filterForLeastCommon(input: List<String>, position: Int): List<String> {
 fun getMostCommonBit(input: List<String>, position: Int): String {
     val stringLength = input[0].length
     val num = input.map { it -> it.split("") }
-        .flatten()
-        .filter { it -> it.isNotEmpty() }
-        .slice(IntRange(position, input.size * stringLength - 1))
-        .windowed(1, stringLength, true)
-        .flatten()
+        .flatten() // make sequential list of all numbers
+        .filter { it -> it.isNotEmpty() } // filter empty strings from start/end of line
+        .slice(IntRange(position, input.size * stringLength - 1)) // start at bit position we want to look at
+        .windowed(1, stringLength, true) // take every nth bit
+        .flatten() //smush everything together
         .filter { it -> it == "1" }
-        .size
-    val result = num > input.size / 2 || input.size.toFloat() / num.toFloat() == 2f
+        .size // count ones to know if more ones or zeroes
+    val result = num > input.size / 2 || input.size.toFloat() / num.toFloat() == 2f // check if even between ones and zeroes
 //    println("input: $input. Least common for position $position: $result")
     return result.toBinaryString()
 }
@@ -53,14 +53,14 @@ fun getMostCommonBit(input: List<String>, position: Int): String {
 fun getLeastCommonBit(input: List<String>, position: Int): String {
     val stringLength = input[0].length
     val num = input.map { it -> it.split("") }
-        .flatten()
-        .filter { it -> it.isNotEmpty() }
-        .slice(IntRange(position, input.size * stringLength - 1))
-        .windowed(1, stringLength, true)
-        .flatten()
+        .flatten() // make sequential list of all numbers
+        .filter { it -> it.isNotEmpty() } // filter empty strings from start/end of line
+        .slice(IntRange(position, input.size * stringLength - 1)) // start at bit position we want to look at
+        .windowed(1, stringLength, true) // take every nth bit
+        .flatten() //smush everything together
         .filter { it -> it == "1" }
-        .size
-    val result = (num <= input.size / 2 && !(input.size.toFloat() / num.toFloat() == 2f)).toBinaryString()
+        .size // count ones to know if more ones or zeroes
+    val result = (num <= input.size / 2 && !(input.size.toFloat() / num.toFloat() == 2f)).toBinaryString() // check if even between ones and zeroes
 //    println("input: $input. Least common for position $position: $result")
     return result
 }
