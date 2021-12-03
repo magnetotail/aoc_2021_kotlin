@@ -5,7 +5,7 @@ fun main() {
             .joinToString("", "", "")
             .toInt(2) *
             IntRange(0, input[0].length -1)
-            .map { getMostCommonBit(input, it, Selector.LEAST_SELECTOR) }
+            .map { getMostCommonBit(input, it, Selector.MOST_SELECTOR) }
             .map { it.toBinaryBoolean().not().toBinaryString() }
             .joinToString("", "", "")
             .toInt(2)
@@ -27,14 +27,14 @@ fun main() {
 
 enum class Selector(val b: (Int, List<String>) -> Boolean) {
     MOST_SELECTOR({num , input -> num > input.size / 2 || input.size.toFloat() / num.toFloat() == 2f}),
-    LEAST_SELECTOR({ num, input -> (num <= input.size / 2 && !(input.size.toFloat() / num.toFloat() == 2f)) })
+    LEAST_SELECTOR({ num, input -> (num <= input.size / 2 && input.size.toFloat() / num.toFloat() != 2f) })
 
 }
 
 fun filterForMostCommon(input: List<String>, position: Int, selector: Selector): List<String> {
     if(input.size == 1)
         return input
-    return input.filter { it -> it[position] == getMostCommonBit(input, position, selector).toString()[0] }
+    return input.filter { it -> it[position] == getMostCommonBit(input, position, selector)[0] }
 }
 
 fun getMostCommonBit(input: List<String>, position: Int, selector: Selector): String {
