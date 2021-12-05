@@ -16,7 +16,7 @@ fun main() {
         boards.forEach{it.applyNumber(num)}
         val solvedBoards = boards.filter { it.isSolved() }
         if (solvedBoards.isNotEmpty()) {
-            println("Found solved Board at number $num")
+            println("Found solved Board at number $num, it was board ${boards.indexOf(solvedBoards[0])}")
             println("Solution to puzzle: " + solvedBoards[0].sumOfAllUnmarked() * num)
             break
         }
